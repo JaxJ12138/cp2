@@ -9,7 +9,6 @@
   It includes a few funcitons that assign and change css properties responsively.
   One function create the rain of men. Two functions to apply dynamic syle to
   the images. One function to refresh the rainy men
-
 */
 
 (function() {
@@ -115,10 +114,10 @@
   // this function allow viewer to push back the men further till disappearing.
   function clickReaction(){
     if (this.classList.contains('close')){
-      this.classList.replace('close','mid');
-    }else if(this.classList.contains('mid')){
-      this.classList.replace('mid','far');
-    }else{
+      this.classList.replace('close', 'mid');
+    }else if (this.classList.contains('mid')){
+      this.classList.replace('mid', 'far');
+    }else {
       this.remove();
     }
   }
@@ -127,7 +126,7 @@
 
   /**
    * Returns the element that has the ID attribute with the specified value.
-   * @param {string} name - element ID.
+   * @param {string} identification - element ID.
    * @returns {object} - DOM object associated with id.
    */
   function id(identification) {
@@ -141,14 +140,5 @@
    */
   function qs(selector) {
     return document.querySelector(selector);
-  }
-
-  /**
-   * Returns an array of elements matching the given query.
-   * @param {string} query - CSS query selector.
-   * @returns {array} - Array of DOM objects matching the given query.
-   */
-  function qsa(query) {
-    return document.querySelectorAll(query);
   }
 })();
