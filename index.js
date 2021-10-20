@@ -1,15 +1,15 @@
 "use strict";
 
-/*
-*Name: Zhengxuan Jiang
-*Date: Oct 20, 2021
-*Section: CSE 154 AG
-*TA: Shawn Cho, Alex Larsen
-*This is the index.js  for my CSE 154 of web development work.
-*It includes a few funcitons that assign and change css properties responsively.
-*One function create the rain of men. Two functions to apply dynamic syle to
-*the images. One function to refresh the rainy men
-*/
+/**
+ * Name: Zhengxuan Jiang
+ * Date: Oct 20, 2021
+ * Section: CSE 154 AG
+ * TA: Shawn Cho, Alex Larsen
+ * This is the index.js  for my CSE 154 of web development work.
+ * It includes a few funcitons that assign and change css properties responsively.
+ * One function create the rain of men. Two functions to apply dynamic syle to
+ * the images. One function to refresh the rainy men
+ */
 
 (function() {
   window.addEventListener("load", init);
@@ -25,8 +25,12 @@
   const NUMFORIMG = 6;
   const HORIZONTALSPEED = 10;
   const DEGREE = 45.0;
+  const RIGHTANGLE = 90;
+  const MIDAMOUNT = 4;
 
-  // this function set up the page according to the window height and width
+  /**
+   * this function set up the page according to the window height and width
+   */
   function init() {
     window.setInterval(timeUpdate, BUFFER);
     window.addEventListener("mousemove", mouseUpdate);
@@ -42,7 +46,9 @@
 
   }
 
-  // this is the function generating all the falling men
+  /**
+   * this is the function generating all the falling men
+   */
   function generate() {
     let area = window.innerHeight * window.innerWidth;
     let count = area / AREAPERMAN;
@@ -61,7 +67,7 @@
       img.alt = 'the ' + index + ' man';
       if (dis <= 1) {
         img.classList.add(DISTANCE[0], 'transition');
-      } else if (dis <= 4) {
+      } else if (dis <= MIDAMOUNT) {
         img.classList.add(DISTANCE[1], 'transition');
       } else {
         img.classList.add(DISTANCE[2], 'transition');
@@ -75,7 +81,9 @@
     }
   }
 
-  // This function refreshes the page
+  /**
+   * this function refreshes the page
+   */
   function buttonClick() {
     let parent = id('the-window');
     parent.innerHTML = "";
@@ -83,7 +91,9 @@
 
   }
 
-  // this function allows the page to update from time to time
+  /**
+   * this function allows the page to update from time to time
+   */
   function timeUpdate() {
     let elements = id('the-window').children;
     for (let i = 0; i < elements.length; i++) {
@@ -92,7 +102,7 @@
       if (cross > window.innerWidth + BUFFER) {
         elements[i].style.left = "-9px";
       } else if (cross <= -BUFFER) {
-        elements[i].style.left = window.innerWidth + 9 + "px";
+        elements[i].style.left = window.innerWidth + BUFFER + "px";
       } else {
         let displacement = Math.floor(x * BUFFER / DEGREE);
         elements[i].style.left = cross - displacement + "px";
@@ -106,9 +116,11 @@
     }
   }
 
-  // this function update the orientation of the men according to mouse movement.
+  /**
+   * this function update the orientation of the men according to mouse movement
+   */
   function mouseUpdate() {
-    x = Math.floor(0 - (event.clientX - window.innerWidth / 2) / window.innerWidth * 90);
+    x = Math.floor(0 - (event.clientX - window.innerWidth / 2) / window.innerWidth * RIGHTANGLE);
     let elements = id('the-window').children;
     for (let i = 0; i < elements.length; i++) {
       elements[i].style.transform = "rotateZ(" + x + "deg)";
@@ -116,7 +128,9 @@
 
   }
 
-  // this function allow viewer to push back the men further till disappearing.
+  /**
+   * this function allow viewer to push back the men further till disappearing
+   */
   function clickReaction() {
     if (this.classList.contains('close')) {
       this.classList.replace('close', 'mid');
