@@ -13,10 +13,8 @@
 
 (function() {
   window.addEventListener("load", init);
-  window.setInterval(timeUpdate, 10);
-  window.addEventListener("mousemove",mouseUpdate);
 
-  //these are globle variable and constant
+  //these are globle variable and constants
   let x = 0;
   const DISTANCE = ['close', 'mid', 'far'];
   const BUFFER = 10;
@@ -30,6 +28,8 @@
 
   // this function set up the page according to the window height and width
   function init() {
+    window.setInterval(timeUpdate, BUFFER);
+    window.addEventListener("mousemove", mouseUpdate);
 
     let button = qs('button');
 
@@ -47,7 +47,7 @@
     let area = window.innerHeight * window.innerWidth;
     let count = area/AREAPERMAN;
 
-    for (let i = 1; i<=count; i++){
+    for (let i = 1; i<= count; i++) {
       let img = document.createElement('img');
       img.addEventListener("click", clickReaction);
 
@@ -57,14 +57,14 @@
       let rightCoord = Math.floor(Math.random() * window.innerWidth);
 
       // the image is from www.pngfind.com
-      img.src = 'images/man'+index+'.png';
-      img.alt = 'the '+index+' man';
-      if (dis <= 1){
-        img.classList.add(DISTANCE[0],'transition');
-      }else if (dis <= 4){
-        img.classList.add(DISTANCE[1],'transition');
-      }else{
-        img.classList.add(DISTANCE[2],'transition');
+      img.src = 'images/man' + index + '.png';
+      img.alt = 'the ' + index + ' man';
+      if (dis <= 1) {
+        img.classList.add(DISTANCE[0], 'transition');
+      } else if (dis <= 4) {
+        img.classList.add(DISTANCE[1], 'transition');
+      } else {
+        img.classList.add(DISTANCE[2], 'transition');
       }
 
 
@@ -87,22 +87,21 @@
   // this function allows the page to update from time to time
   function timeUpdate(){
     let elements = id('the-window').children;
-    for (let i=0; i < elements.length; i++){
+    for (let i=0; i < elements.length; i++) {
       let drop = parseInt(elements[i].style.top);
       let cross = parseInt(elements[i].style.left);
-      if (cross > window.innerWidth + BUFFER){
+      if (cross > window.innerWidth + BUFFER) {
         elements[i].style.left = "-9px";
-      }else if (cross <= -BUFFER){
+      } else if (cross <= -BUFFER) {
         elements[i].style.left = window.innerWidth + 9 + "px";
-      }else{
+      } else {
         let displacement = Math.floor(x * BUFFER / DEGREE);
         elements[i].style.left = cross - displacement + "px";
-        console.log(x / DEGREE);
       }
 
       if (drop > window.innerHeight){
-        elements[i].style.top = "-150px";
-      }else{
+        elements[i].style.top = "-100px";
+      } else {
         elements[i].style.top = drop+1 + "px";
       }
 
@@ -111,22 +110,21 @@
 
   // this function update the orientation of the men according to mouse movement.
   function mouseUpdate(){
-    let e = event;
-    x = Math.floor(0 - (e.clientX - window.innerWidth / 2) / window.innerWidth * 90);
+    x = Math.floor(0 - (event.clientX - window.innerWidth / 2) / window.innerWidth * 90);
     let elements = id('the-window').children;
-    for (let i = 0; i < elements.length; i++){
-      elements[i].style.transform = "rotateZ("+ x + "deg)";
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].style.transform = "rotateZ(" + x + "deg)";
     }
 
   }
 
   // this function allow viewer to push back the men further till disappearing.
   function clickReaction(){
-    if (this.classList.contains('close')){
+    if (this.classList.contains('close')) {
       this.classList.replace('close', 'mid');
-    }else if (this.classList.contains('mid')){
+    } else if (this.classList.contains('mid')) {
       this.classList.replace('mid', 'far');
-    }else {
+    } else {
       this.remove();
     }
   }
