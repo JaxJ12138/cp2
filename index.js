@@ -1,20 +1,20 @@
 "use strict";
 
 /*
-  *Name: Zhengxuan Jiang
-  *Date: Oct 20, 2021
-  *Section: CSE 154 AG
-  *TA: Shawn Cho, Alex Larsen
-  *This is the index.js  for my CSE 154 of web development work.
-  *It includes a few funcitons that assign and change css properties responsively.
-  *One function create the rain of men. Two functions to apply dynamic syle to
-  *the images. One function to refresh the rainy men
-  */
+*Name: Zhengxuan Jiang
+*Date: Oct 20, 2021
+*Section: CSE 154 AG
+*TA: Shawn Cho, Alex Larsen
+*This is the index.js  for my CSE 154 of web development work.
+*It includes a few funcitons that assign and change css properties responsively.
+*One function create the rain of men. Two functions to apply dynamic syle to
+*the images. One function to refresh the rainy men
+*/
 
 (function() {
   window.addEventListener("load", init);
 
-  //these are globle variable and constants
+  // these are globle variable and constants
   let x = 0;
   const DISTANCE = ['close', 'mid', 'far'];
   const BUFFER = 10;
@@ -43,11 +43,11 @@
   }
 
   // this is the function generating all the falling men
-  function generate(){
+  function generate() {
     let area = window.innerHeight * window.innerWidth;
-    let count = area/AREAPERMAN;
+    let count = area / AREAPERMAN;
 
-    for (let i = 1; i<= count; i++) {
+    for (let i = 1; i <= count; i++) {
       let img = document.createElement('img');
       img.addEventListener("click", clickReaction);
 
@@ -67,7 +67,6 @@
         img.classList.add(DISTANCE[2], 'transition');
       }
 
-
       img.style.top = topCoord + "px";
       img.style.left = rightCoord + "px";
 
@@ -77,17 +76,17 @@
   }
 
   // This function refreshes the page
-  function buttonClick(){
-    let parent = id('the-window')
+  function buttonClick() {
+    let parent = id('the-window');
     parent.innerHTML = "";
     generate();
 
   }
 
   // this function allows the page to update from time to time
-  function timeUpdate(){
+  function timeUpdate() {
     let elements = id('the-window').children;
-    for (let i=0; i < elements.length; i++) {
+    for (let i = 0; i < elements.length; i++) {
       let drop = parseInt(elements[i].style.top);
       let cross = parseInt(elements[i].style.left);
       if (cross > window.innerWidth + BUFFER) {
@@ -99,17 +98,16 @@
         elements[i].style.left = cross - displacement + "px";
       }
 
-      if (drop > window.innerHeight){
+      if (drop > window.innerHeight) {
         elements[i].style.top = "-100px";
       } else {
-        elements[i].style.top = drop+1 + "px";
+        elements[i].style.top = drop + 1 + "px";
       }
-
     }
   }
 
   // this function update the orientation of the men according to mouse movement.
-  function mouseUpdate(){
+  function mouseUpdate() {
     x = Math.floor(0 - (event.clientX - window.innerWidth / 2) / window.innerWidth * 90);
     let elements = id('the-window').children;
     for (let i = 0; i < elements.length; i++) {
@@ -119,7 +117,7 @@
   }
 
   // this function allow viewer to push back the men further till disappearing.
-  function clickReaction(){
+  function clickReaction() {
     if (this.classList.contains('close')) {
       this.classList.replace('close', 'mid');
     } else if (this.classList.contains('mid')) {

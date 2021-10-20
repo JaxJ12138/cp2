@@ -18,7 +18,7 @@ body {
   height: 100vh;
 }
 
-.transition, button{
+.transition, button, #the-window {
   position: absolute;
 }
 
