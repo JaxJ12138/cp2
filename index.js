@@ -1,31 +1,40 @@
 "use strict";
 
 /*
-  Name: Zhengxuan Jiang
-  Date: Oct 20, 2021
-  Section: CSE 154 AG
-  TA: Shawn Cho, Alex Larsen
-  This is the index.js  for my CSE 154 of web development work.
-  It includes a few funcitons that assign and change css properties responsively.
-  One function create the rain of men. Two functions to apply dynamic syle to
-  the images. One function to refresh the rainy men
-*/
+  *Name: Zhengxuan Jiang
+  *Date: Oct 20, 2021
+  *Section: CSE 154 AG
+  *TA: Shawn Cho, Alex Larsen
+  *This is the index.js  for my CSE 154 of web development work.
+  *It includes a few funcitons that assign and change css properties responsively.
+  *One function create the rain of men. Two functions to apply dynamic syle to
+  *the images. One function to refresh the rainy men
+  */
 
 (function() {
   window.addEventListener("load", init);
   window.setInterval(timeUpdate, 10);
   window.addEventListener("mousemove",mouseUpdate);
 
+  //these are globle variable and constant
   let x = 0;
-  const DISTANCE = ['close','mid','far'];
+  const DISTANCE = ['close', 'mid', 'far'];
+  const BUFFER = 10;
+  const BUTTONDISPLACE = 150;
+  const BUTTONX = 0.8;
+  const BUTTONY = 0.5;
+  const AREAPERMAN = 30000;
+  const NUMFORIMG = 6;
+  const HORIZONTALSPEED = 10;
+  const DEGREE = 45.0;
 
   // this function set up the page according to the window height and width
   function init() {
 
     let button = qs('button');
 
-    button.style.top = window.innerHeight*0.8 + "px";
-    button.style.left = window.innerWidth*0.5-150 + "px";
+    button.style.top = window.innerHeight * BUTTONX + "px";
+    button.style.left = window.innerWidth * BUTTONY - BUTTONDISPLACE + "px";
 
     button.addEventListener("click", buttonClick);
 
@@ -36,23 +45,23 @@
   // this is the function generating all the falling men
   function generate(){
     let area = window.innerHeight * window.innerWidth;
-    let count = area/30000;
+    let count = area/AREAPERMAN;
 
     for (let i = 1; i<=count; i++){
       let img = document.createElement('img');
       img.addEventListener("click", clickReaction);
 
-      let index = Math.floor(Math.random()*6+1);
-      let dis = Math.floor(Math.random()*10);
-      let topCoord = Math.floor(Math.random()*window.innerHeight);
-      let rightCoord = Math.floor(Math.random()*window.innerWidth);
+      let index = Math.floor(Math.random() * NUMFORIMG + 1);
+      let dis = Math.floor(Math.random() * HORIZONTALSPEED);
+      let topCoord = Math.floor(Math.random() * window.innerHeight);
+      let rightCoord = Math.floor(Math.random() * window.innerWidth);
 
       // the image is from www.pngfind.com
       img.src = 'images/man'+index+'.png';
       img.alt = 'the '+index+' man';
       if (dis <= 1){
         img.classList.add(DISTANCE[0],'transition');
-      }else if (dis<=4){
+      }else if (dis <= 4){
         img.classList.add(DISTANCE[1],'transition');
       }else{
         img.classList.add(DISTANCE[2],'transition');
@@ -81,14 +90,14 @@
     for (let i=0; i < elements.length; i++){
       let drop = parseInt(elements[i].style.top);
       let cross = parseInt(elements[i].style.left);
-      if (cross > window.innerWidth+10){
+      if (cross > window.innerWidth + BUFFER){
         elements[i].style.left = "-9px";
-      }else if (cross <= -10){
-        elements[i].style.left = window.innerWidth+9+"px";
+      }else if (cross <= -BUFFER){
+        elements[i].style.left = window.innerWidth + 9 + "px";
       }else{
-        let displacement = Math.floor(x*10/45.0);
+        let displacement = Math.floor(x * BUFFER / DEGREE);
         elements[i].style.left = cross - displacement + "px";
-        console.log(x/45.0);
+        console.log(x / DEGREE);
       }
 
       if (drop > window.innerHeight){
@@ -103,9 +112,9 @@
   // this function update the orientation of the men according to mouse movement.
   function mouseUpdate(){
     let e = event;
-    x = Math.floor(0-(e.clientX - window.innerWidth/2)/window.innerWidth*90);
+    x = Math.floor(0 - (e.clientX - window.innerWidth / 2) / window.innerWidth * 90);
     let elements = id('the-window').children;
-    for (let i=0; i < elements.length; i++){
+    for (let i = 0; i < elements.length; i++){
       elements[i].style.transform = "rotateZ("+ x + "deg)";
     }
 
