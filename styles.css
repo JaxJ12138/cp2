@@ -12,8 +12,7 @@
 
 body {
   width: 100vw;
-
-  background-image: linear-gradient(170deg, rgb(156,180,206), rgb(185, 236, 224));
+  background-image: linear-gradient(170deg, rgb(156, 180, 206), rgb(185, 236, 224));
   overflow: hidden;
   margin: 0;
   height: 100vh;
@@ -35,16 +34,16 @@ button {
   border-width: 0px;
   background-color: rgb(255, 221, 183);
   color: rgb(209, 94, 0);
-  box-shadow: 10px 10px 20px rgba(0,0,0,0.5), -10px -10px 20px rgba(255, 255, 255,0.5);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5), -10px -10px 20px rgba(255, 255, 255, 0.5);
   width: 300px;
   transition: all 0.5s;
-  transition-timing-function:cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 button:hover {
   background-color: rgb(255, 138, 5);
   color: rgb(255, 255, 255);
-  box-shadow: 5px 5px 5px rgba(0,0,0,0.8), -5px -5px 10px rgba(255, 255, 255, 0.8);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8), -5px -5px 10px rgba(255, 255, 255, 0.8);
 }
 
 .far {
